@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Raygie S. Estole – System Administrator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#edf1f3; --surface:#fbfcfc; --ink:#13232b; --muted:#53666f; --line:#cfd9de;
+  --accent:#0b6f7a; --accent-ink:#ffffff; --ok:#2a9d5c; --warn:#d99a2b;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0e171c;--surface:#15232a;--ink:#e6eef1;--muted:#9bb0b9;--line:#26394258;--accent:#4fc3d0;--accent-ink:#06191d;--ok:#4cc380;--warn:#e8b04a}
+}
+:root[data-theme="dark"]{--bg:#0e171c;--surface:#15232a;--ink:#e6eef1;--muted:#9bb0b9;--line:#263942;--accent:#4fc3d0;--accent-ink:#06191d;--ok:#4cc380;--warn:#e8b04a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--body);-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.25rem}
+header.top{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:center;justify-content:space-between;padding:.9rem 0;position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+@media (max-width:640px){nav{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;width:100%;scrollbar-width:none}nav::-webkit-scrollbar{display:none}}
+.brand{font:700 1.15rem var(--display);text-decoration:none;color:var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:.25rem 1.1rem}
+nav a{color:var(--muted);text-decoration:none;font-weight:500;padding:.35rem 0}
+nav a:hover{color:var(--ink)}
+
+nav a{position:relative;transition:transform .15s ease}
+nav a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1)}
+nav a:active{transform:scale(.92)}
+section:target h2{animation:pop .6s ease}
+@keyframes pop{0%{transform:translateY(10px);opacity:.3}100%{transform:none;opacity:1}}
+
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;max-width:14ch}
+h2{font-size:clamp(1.7rem,4vw,2.3rem);font-weight:700;margin-bottom:1.5rem}
+h3{font-size:1.2rem;font-weight:700}
+section{padding:3.5rem 0}
+.hero{padding:2.5rem 0 3rem}
+.lead{font-size:1.2rem;color:var(--muted);max-width:56ch;margin:1.25rem 0 1.75rem}
+.btns{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn{display:inline-block;padding:.8rem 1.3rem;border-radius:10px;font-weight:600;text-decoration:none;border:2px solid var(--accent)}
+.btn.main{background:var(--accent);color:var(--accent-ink)}
+.btn.alt{color:var(--accent)}
+
+/* status board: the hero's signature */
+.board{margin-top:2.75rem;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.board-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;padding:1rem 1.25rem;border-bottom:1px solid var(--line);font-weight:600}
+.board-h .all{display:flex;align-items:center;gap:.5rem;color:var(--ok)}
+.dot{width:.7rem;height:.7rem;border-radius:50%;background:var(--ok);display:inline-block}
+.mon{display:grid;grid-template-columns:minmax(150px,1fr) 2fr auto;gap:.5rem 1.25rem;align-items:center;padding:.9rem 1.25rem;border-bottom:1px solid var(--line)}
+.mon:last-child{border-bottom:0}
+.mon b{font-weight:600}
+.mon small{display:block;color:var(--muted);font-size:.85rem;line-height:1.3}
+.bars{display:flex;gap:2px;height:28px;min-width:0}
+.bars i{flex:1;border-radius:2px;background:var(--ok);min-width:2px}
+.bars i.w{background:var(--warn)}
+.pct{font-weight:600;color:var(--ok);font-variant-numeric:tabular-nums}
+.note{padding:.7rem 1.25rem;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+@media (max-width:640px){
+  .mon{grid-template-columns:1fr auto}
+  .mon .bars{grid-column:1/-1;order:3}
+}
+
+.about p{max-width:68ch;margin:0 0 1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.4rem}
+.box ul{margin:.75rem 0 0;padding-left:1.1rem;color:var(--muted)}
+.box li{margin:.25rem 0}
+.proj{display:grid;gap:1.25rem}
+.proj .box{display:grid;grid-template-columns:minmax(0,1fr);gap:.6rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem}
+.tags span{font-size:.85rem;padding:.15rem .6rem;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.tl{border-left:3px solid var(--accent);padding-left:1.4rem;display:grid;gap:2rem;margin-left:.3rem}
+.tl h3 span{color:var(--muted);font-weight:500;font-family:var(--body);font-size:1rem}
+.when{color:var(--muted);font-size:.95rem;margin:.2rem 0 .5rem}
+.tl p{margin:0;max-width:66ch}
+.contact{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:2rem 1.5rem}
+.contact p{max-width:52ch;color:var(--muted)}
+footer{padding:2rem 0 2.5rem;color:var(--muted);font-size:.9rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top">Raygie S. Estole</a>
+    <nav aria-label="Main">
+      <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a>
+      <a href="#experience">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <h1>I keep servers up and mail flowing.</h1>
+      <p class="lead">System Administrator building and running internal infrastructure: virtualization, email, monitoring, networks and user access for day-to-day business IT.</p>
+      <div class="btns">
+        <a class="btn main" href="#contact">Get in touch</a>
+        <a class="btn alt" href="#projects">See my projects</a>
+      </div>
+
+      <div class="board" aria-label="Sample status board of the services I run">
+        <div class="board-h"><span>Services I run</span><span class="all"><span class="dot"></span>All systems operational</span></div>
+        <div class="mon"><span><b>Proxmox VE</b><small>Virtualization hosts</small></span><div class="bars" data-seed="3"></div><span class="pct">99.98%</span></div>
+        <div class="mon"><span><b>Windows Server</b><small>Microsoft SQL</small></span><div class="bars" data-seed="7"></div><span class="pct">99.95%</span></div>
+        <div class="mon"><span><b>Ubuntu Server</b><small>Internal services</small></span><div class="bars" data-seed="11"></div><span class="pct">99.99%</span></div>
+        <div class="mon"><span><b>LAN / WAN</b><small>Switches, routers, links</small></span><div class="bars" data-seed="19"></div><span class="pct">99.90%</span></div>
+        <div class="mon"><span><b>Active Directory</b><small>Users and access</small></span><div class="bars" data-seed="23"></div><span class="pct">100%</span></div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <h2>About me</h2>
+      <p>I’m a System Administrator with hands-on experience supporting business IT operations and building internal infrastructure. I deploy and manage Proxmox VE, Ubuntu Server, Mailcow email and Uptime Kuma monitoring for servers and network devices.</p>
+      <p>My background also covers LAN/WAN administration, Active Directory user and access management, endpoint troubleshooting, preventive maintenance and IT asset tracking. I focus on reliable services, practical troubleshooting and stable IT operations.</p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="grid">
+        <div class="box"><h3>Virtualization and servers</h3><ul><li>Proxmox VE deployment and management</li><li>Ubuntu Server administration</li><li>Docker and Docker Compose</li><li>Backups and preventive maintenance</li></ul></div>
+        <div class="box"><h3>Email and monitoring</h3><ul><li>Mailcow Dockerized email services</li><li>Uptime Kuma for servers and devices</li><li>Alerting and incident response</li></ul></div>
+        <div class="box"><h3>Networking</h3><ul><li>LAN/WAN administration</li><li>Switching, routing and Wi-Fi</li><li>Connectivity troubleshooting</li></ul></div>
+        <div class="box"><h3>Users and endpoints</h3><ul><li>Active Directory users and access</li><li>Endpoint troubleshooting</li><li>IT asset tracking</li></ul></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="proj">
+        <div class="box"><h3>Proxmox virtualization environment</h3><p>Deployed and manage a Proxmox VE environment that hosts virtual machines and containers for internal business services. I handle VM provisioning, resource allocation, scheduled backups and snapshots, and host updates. Consolidating services onto virtualized hosts made them easier to maintain, restore and scale, while reducing the need for separate physical servers.</p><div class="tags"><span>Proxmox VE</span><span>Ubuntu Server</span><span>Backups</span></div></div>
+        <div class="box"><h3>Self-hosted email with Mailcow</h3><p>Set up and maintain a Mailcow Dockerized email server serving mailboxes across [number] domains. I configured DNS records, spam filtering, mailbox and alias management, and regular backups. I also handle updates and troubleshoot delivery issues to keep company email reliable and secure.</p><div class="tags"><span>Mailcow</span><span>Docker</span><span>DNS</span></div></div>
+        <div class="box"><h3>Infrastructure monitoring with Uptime Kuma</h3><p>Implemented Uptime Kuma to monitor servers, network devices and key services in real time. I set up checks for ping, HTTP, ports and configured alerts through email, so problems are caught early. This gives the team faster response times and a clear view of service uptime.</p><div class="tags"><span>Uptime Kuma</span><span>Alerts</span><span>Network devices</span></div></div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Work experience</h2>
+      <div class="tl">
+        <div><h3>System Administrator <span>– Makoto Metal Technology Inc.</span></h3><p class="when">2026 – 2027</p><p>Manage and support the company’s IT infrastructure, including Proxmox VE virtualization, Ubuntu Server and Mailcow email services. Monitor servers and network devices with Uptime Kuma, administer the LAN/WAN, and manage Active Directory user accounts and access. Handle endpoint troubleshooting, preventive maintenance and IT asset tracking to keep daily operations stable and reliable</p></div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <div class="tl">
+        <div><h3>Diploma in Computer Engineering Technology <span>– CITE Technical Institute, Inc.</span></h3><p class="when">2022 – 2026</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact">
+        <h2>Let’s talk</h2>
+        <p>Looking for a reliable system administrator? Send me a message and I’ll get back to you.</p>
+        <div class="btns">
+          <a class="btn main" href="mailto:rsolivenestole@gmail.com">rsolivenestole@gmail.com</a>
+          <a class="btn alt" href="https://www.linkedin.com/in/raygie-estole-06717b3a6/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="yr">2026</span> Raygie S. Estole. All rights reserved.</footer>
+</div>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.querySelectorAll('.bars').forEach(function(el){
+  var s = +el.dataset.seed, html = '';
+  for (var d = 0; d < 30; d++) {
+    s = (s * 9301 + 49297) % 233280;
+    var warn = (s / 233280) > 0.95;
+    html += '<i' + (warn ? ' class="w"' : '') + '></i>';
+  }
+  el.innerHTML = html;
+});
+
+var SCROLL_MS = 2000;
+document.addEventListener('click', function(e){
+  var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+  if (!a) return;
+  var id = a.getAttribute('href');
+  var target = id === '#top' ? document.body : document.querySelector(id);
+  if (!target) return;
+  e.preventDefault();
+  var start = window.pageYOffset;
+  var end = id === '#top' ? 0 : target.getBoundingClientRect().top + start;
+  var t0 = null;
+  function ease(t){ return t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
+  function step(ts){
+    if (t0 === null) t0 = ts;
+    var p = Math.min((ts - t0) / SCROLL_MS, 1);
+    window.scrollTo(0, start + (end - start) * ease(p));
+    if (p < 1) { requestAnimationFrame(step); }
+    else { history.replaceState(null, '', id); }
+  }
+  requestAnimationFrame(step);
+});
+
+</script>
+</body>
+</html>
